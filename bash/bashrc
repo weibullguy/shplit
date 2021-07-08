@@ -1,0 +1,110 @@
+# Set the path to the directory containing your shplit configurations.
+# Uncomment the first line for live use.
+# Uncomment the second line if you're just testing per README.md.
+ENV_INI_DIR="$HOME/.config/shplit"
+#ENV_INI_DIR="configs"
+
+unset PS_COLORS; declare -A PS_COLORS
+unset PS_SYMBOLS; declare -A PS_SYMBOLS
+
+# Load functions.
+[ -e $ENV_INI_DIR/functions.ini ] && source $ENV_INI_DIR/functions.ini
+
+# Set the default variable values.
+set_default_colors
+set_default_symbols
+
+login_user="$(whoami)"
+
+# Load user-specific configuration.  This may override default variable values.
+[ -e $ENV_INI_DIR/my_bashrc.conf ] && source $ENV_INI_DIR/my_bashrc.conf
+
+# ----- ----- ----- ----- --- CONFIGURE THE PROMPT --- ----- ----- ----- -----
+# The default prompt contains the following information:
+#
+# 1. Python version & virtualenv name if working in active virtualenv.
+# 2. Git status.
+# 3. Date and time.
+# 4. Current directory.
+#
+# The default prompt is two lines tall with the information arranged as:
+#
+# 1 > 2 >
+# 3 > 4 > $
+#
+# The default prompt has the following text effects and colors.
+#
+# 1. Bold text, dark grey foreground, light grey background.
+# 2. Bold text, white foreground, variable background depending on git status.
+# 3. Bold text, white foreground, blue background.
+# 4. Bold text, white foreground, light purple background.
+#
+# Uncomment the line below to use the default prompt.
+[ -e $ENV_INI_DIR/prompt.ini ] && source $ENV_INI_DIR/prompt.ini
+
+# Sure, you can use powerline for your prompt too.
+# source /usr/share/powerline/bash/powerline.sh
+# ----------------------------------------------------------------------------
+
+# ----- ----- ----- ----- ---- SET COMMAND ALIASES ---- ----- ----- ----- -----
+# Uncomment the line below to use the default command aliases.
+[ -e $ENV_INI_DIR/aliases.ini ] && source $ENV_INI_DIR/aliases.ini
+
+# ----- ----- ----- -- SET LOCAL 'SYSTEM' DIRECTORY PATHS -- ----- ----- -----
+# The default local 'system' directories are:
+#
+# 1. LOCAL_PREFIX=$HOME/.local
+# 2. LOCAL_LIBDIR=$PREFIX/lib or $PREFIX/lib64 (preferred)
+#
+# Use this $HOME/.local directory to install software without being root.
+# Uncomment the line below to use and set local installation directories.
+[ -e $ENV_INI_DIR/local.ini ] && source $ENV_INI_DIR/local.ini
+# ----------------------------------------------------------------------------
+
+# -----  ----- ----- ----- BUILD ENVIRONMENT VARIABLES ----- ----- ----- -----
+# Uncomment the line below to set tokens you use.  Add export statements
+# similar to those below to add each toekn to your environment.
+[ -e $HOME/.tokens.in ] && source $HOME/.tokens.in
+export GITHUB_TOKEN
+export CODACY_PROJECT_TOKEN
+export CHANGELOG_GITHUB_TOKEN
+
+# Uncomment the line below to use and set compiler flags.
+[ -e $ENV_INI_DIR/flags.ini ] && source $ENV_INI_DIR/flags.ini
+
+# Uncomment the line below to use default distcc settings.
+[ -e $ENV_INI_DIR/distcc.ini ] && source $ENV_INI_DIR/distcc.ini
+
+# Uncomment the line below to use default ccache settings.
+[ -e $ENV_INI_DIR/ccache.ini ] && source $ENV_INI_DIR/ccache.ini
+
+# Uncomment the line below to use default perl5 variables.  
+# This must come AFTER local.ini.
+[ -e $ENV_INI_DIR/perl5.ini ] && source $ENV_INI_DIR/perl5.ini
+
+# Uncomment the line below to use default python3 variables.
+[ -e $ENV_INI_DIR/python3.ini ] && source $ENV_INI_DIR/python3.ini
+
+# Uncomment the line below to use default R variables.  
+# This must come AFTER local.ini
+[ -e $ENV_INI_DIR/R.ini ] && source $ENV_INI_DIR/R.ini
+
+# Uncomment the line below to use default LaTeX variables. 
+# This must come AFTER local.ini.
+[ -e $ENV_INI_DIR/latex.ini ] && source $ENV_INI_DIR/latex.ini
+# ----------------------------------------------------------------------------
+
+# Let globs include dots.
+shopt -s dotglob
+
+# ----- ----- ----- ----- SYSTEM ENVIRONMENT VARIABLES ----- ----- ----- -----
+EDITOR=`which gvim`
+BROWSER="/opt/brave.com/brave/brave"
+export EDITOR
+export BROWSER
+
+# This is needed to suppress dbus error message, "Couldn't register with
+# accessibility bus: Did not receive a reply."  This is a hack and should be
+# looked into at a later time, but for now, leave this.
+export NO_AT_BRIDGE=1
+# ----------------------------------------------------------------------------

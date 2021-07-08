@@ -1,0 +1,38 @@
+# Set the directory containing individual configuration files.
+# Uncomment the first for live use.
+# Uncomment the second for testing.
+ENV_INI_DIR="$HOME/.config/shplit"
+#ENV_INI_DIR="configs"
+
+# Load functions.
+[ -e $ENV_INI_DIR/functions.ini ] && source $ENV_INI_DIR/functions.ini
+
+# ----- ----- ----- ----- -- SET THE PATH VARIABLES - ----- ----- ----- -----
+# Reset the PATH variable.
+PATH=$(getconf PATH 2>/dev/null)
+
+# Reset the PKG_CONFIG_PATH variable.
+PKG_CONFIG_PATH=$(getconf PKG_CONFIG_PATH 2>/dev/null)
+
+# Reset the LD_LIBRARY_PATH variable.
+LD_LIBRARY_PATH=$(getconf LD_LIBRARY_PATH 2>/dev/null)
+
+[ -e $ENV_INI_DIR/path.ini ] && source $ENV_INI_DIR/path.ini
+# ---------------------------------------------------------------------------
+
+# ----- ----- ----- ----- SET VARIOUS ENV VARIABLES - ----- ----- ----- -----
+[ -e $ENV_INI_DIR/profile.ini ] && source $ENV_INI_DIR/profile.ini
+# ---------------------------------------------------------------------------
+#
+# ----- ----- ----- -- START SOME APPLICATIONS & DAEMONS -- ----- ----- -----
+[ -e $ENV_INI_DIR/daemons.ini ] && source $ENV_INI_DIR/daemons.ini
+# ---------------------------------------------------------------------------
+
+# ----- ----- ----- --- SET USER-SPECIFIC CONFIGURATION --- ----- ----- -----
+# Source bashrc if it exists.
+if [ -e $HOME/.bashrc ];
+then
+    #source $HOME/.bashrc
+    source $HOME/projects/shplit/bash/bashrc
+fi
+# ---------------------------------------------------------------------------
