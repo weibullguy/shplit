@@ -32,7 +32,7 @@ LD_LIBRARY_PATH=$(getconf LD_LIBRARY_PATH 2>/dev/null)
 # Source bashrc if it exists.
 if [ -e $HOME/.bashrc ];
 then
-    #source $HOME/.bashrc
-    source $HOME/projects/shplit/bash/bashrc
+    source $HOME/.bashrc
+    #source $HOME/projects/shplit/bash/bashrc
 fi
 # ---------------------------------------------------------------------------
